@@ -22,8 +22,8 @@ def mail(sender_name, sender_pass, receiver, code, url):
         s.connect('smtp.gmail.com', 587)
         s.starttls()
         s.login(sender_name, sender_pass)
-        body = 'Code: %s\nFound at: %s' % (code, url)
-        full_message = 'Subject: %s\n\n%s' % ("Shift Codes for %s" % now.strftime('%Y-%m-%d %H:%M'), body)
+        body = 'Mac/PC Code: %s\nFound at: %s' % (code, url)
+        full_message = 'Subject: %s\n\n%s' % ("Shift Codes for %s" % now.strftime('%Y-%m-%d at %H:%M'), body)
         s.sendmail(sender_name, receiver, full_message)
         print 'Sent message!'
     except Exception,R:
