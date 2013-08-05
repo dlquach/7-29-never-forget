@@ -28,6 +28,3 @@ def mail(sender_name, sender_pass, receiver, code, url):
         print 'Sent message!'
     except Exception,R:
         print R
-
-def test():
-    print 'hello world'
