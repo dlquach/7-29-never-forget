@@ -40,11 +40,14 @@ for link in links:
     comment_req = urllib2.Request(link)
     comment_page = urllib2.urlopen(comment_req).read()
     """  I'm particularly interested in PC codes but using Mac as the pattern to match ensures we don't get random HTML code in the results. """
-    codes = re.findall('(?i)MAC.*?.....-.....-.....-.....-.....', comment_page) 
+    codes = re.findall('(?i)MAC|PC.*?.....-.....-.....-.....-.....', comment_page) 
 
     """ Check if each code has already been sent out or already exists in the code list. """
     for string in codes:
+        print string
         code = re.findall('.....-.....-.....-.....-.....', string)
+        if not code:
+            break
         if not code[0] in code_array:
             code_array.append(code[0])
 
