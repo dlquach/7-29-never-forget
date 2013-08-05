@@ -44,7 +44,6 @@ for link in links:
 
     """ Check if each code has already been sent out or already exists in the code list. """
     for string in codes:
-        print string
         code = re.findall('.....-.....-.....-.....-.....', string)
         if not code:
             break
@@ -62,12 +61,19 @@ with open('emailinfo.txt') as infofile:
     password = content[1]
     recipient = content[2]
 
+new_codes_found = 0
+
 for code in code_array:
     """ Put the codes into an external file provided that they are not already in the list. """
     with open("shiftcodes.txt", "r+b") as shiftfile:
         if not code[0] in shiftfile.read():
-           shiftfile.write('%s\n' % code[0]) 
-           print '%s added to the code log.' % code[0]
-           emaillib.mail(username, password, recipient, code[0], code[1]) 
+            shiftfile.write('%s\n' % code[0]) 
+            print '%s added to the code log.' % code[0]
+            emaillib.mail(username, password, recipient, code[0], code[1]) 
+            new_codes_found = new_codes_found + 1
 
+if new_codes_found == 0:
+    print 'No new codes at this time.'
+else:
+    print '%d new codes found and submitted.' % (new_codes_found) 
 
