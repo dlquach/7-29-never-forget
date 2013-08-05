@@ -49,7 +49,7 @@ for link in links:
         if not code:
             break
         if not code[0] in code_array:
-            code_array.append(code[0])
+            code_array.append([code[0], link])
 
 username = ''
 password = ''
@@ -65,9 +65,9 @@ with open('emailinfo.txt') as infofile:
 for code in code_array:
     """ Put the codes into an external file provided that they are not already in the list. """
     with open("shiftcodes.txt", "r+b") as shiftfile:
-        if not code in shiftfile.read():
-           shiftfile.write('%s\n' % code) 
-           print '%s added to the code log.' % code
-           emaillib.mail(username, password, recipient, code) 
+        if not code[0] in shiftfile.read():
+           shiftfile.write('%s\n' % code[0]) 
+           print '%s added to the code log.' % code[0]
+           emaillib.mail(username, password, recipient, code[0], code[1]) 
 
 
