@@ -15,6 +15,16 @@ How it works:
     This crawler must be accompanied by a text file called shiftcodes.txt and an email info file called emailinfo.txt.
     Codes will be stored in the aforementioned text file to be able to check against sending the same code twice.
 
+    emailinfo.txt should be of the following format:
+        Line 1: Sender username
+        Line 2: Sender password
+        Line 3: Recipient #1
+          .
+          .
+          .
+        Line x: Recipient #2
+    This gives the crawler a mailing list sort of functionality.
+
     Shift codes are of the form xxxxx-xxxxx-xxxxx-xxxxx-xxxx.
 
 """""
@@ -52,14 +62,22 @@ for link in links:
 
 username = ''
 password = ''
-recipient = ''
+recipients = []
 
-""" Grab the email info. """
+total_lines = 0
+
+""" Grab the email info. The 3rd line and beyond are treated as a mailing list (all recipients) """
 with open('emailinfo.txt') as infofile:
     content = infofile.readlines()
-    username = content[0]
-    password = content[1]
-    recipient = content[2]
+    for line in content:
+        total_lines = total_lines + 1 
+        if total_lines == 1:
+            username = line
+        elif total_lines == 2:
+            password = line
+        else:
+            recipients.append(line)
+            
 
 new_codes_found = 0
 
@@ -69,7 +87,8 @@ for code in code_array:
         if not code[0] in shiftfile.read():
             shiftfile.write('%s\n' % code[0]) 
             print '%s added to the code log.' % code[0]
-            emaillib.mail(username, password, recipient, code[0], code[1]) 
+            for recipient in recipients:
+                emaillib.mail(username, password, recipient, code[0], code[1]) 
             new_codes_found = new_codes_found + 1
 
 if new_codes_found == 0:
