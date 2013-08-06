@@ -40,7 +40,7 @@ req = urllib2.Request('http://reddit.com/r/borderlands2/')
 html = urllib2.urlopen(req).read()
 
 """ Regex to find all URLs to the comments of each post that also has 'shift' (case insensitive) in the title. """
-links = re.findall('(?i)http://www.reddit.com/\w*/\w*/comments/\w*/[a-z0-9_]*shift[a-z0-9_]*', html)
+links = re.findall('(?i)http://www.reddit.com/\w*/\w*/comments/\w*/[a-z0-9_]*(?:shift|code)[a-z0-9_]*', html)
 print links
 print ''
 
@@ -77,7 +77,6 @@ with open('emailinfo.txt') as infofile:
             password = line
         else:
             recipients.append(line)
-            
 
 new_codes_found = 0
 
