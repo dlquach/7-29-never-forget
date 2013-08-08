@@ -1,0 +1,9 @@
+{
+    "name": "7-29 Never Forget"
+    "version": "1.0"
+    "description": "Chrome painted version of 7-29-never-forget python script."
+    "browser_action": {
+        "default_icon": "default.jpg"
+        "popup": "popup.html"
+    }
+}
