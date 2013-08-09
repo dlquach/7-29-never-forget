@@ -1,9 +1,10 @@
 {
-    "name": "7-29 Never Forget"
-    "version": "1.0"
-    "description": "Chrome painted version of 7-29-never-forget python script."
+    "name": "7-29 Never Forget",
+    "version": "1.0",
+    "description": "Chrome painted version of 7-29-never-forget python script.",
     "browser_action": {
-        "default_icon": "default.jpg"
-        "popup": "popup.html"
-    }
+        "default_icon": "icon.png",
+        "default_popup": "popup.html"
+    },
+    "manifest_version": 2
 }
